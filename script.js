@@ -1,7 +1,6 @@
 let gameOver = false
 let isMouseDown = false
 let winX,winY //cursor position on viewport
-let deckDesign = "traditional"
 let from,to //which card is going to move over which one
 let onDoubleClick = false
 let cardsTotal
@@ -30,17 +29,15 @@ const $tableaus = document.querySelectorAll(".tableau");
 const $playArea = document.querySelector(".play-area")
 const $movingCards = document.querySelector(".moving-cards")
 //hud related
-const $btnGear = document.querySelector(".btn-gear")
 const $menu = document.querySelector(".menu")
 const $btnRestart = document.querySelector(".btn-restart")
-const $btnDesign = document.querySelector(".btn-design")
 const $btnAbout = document.querySelector(".btn-about")
+
 //prompt related
 const $fullScreenContainer = document.querySelector(".full-screen-container")
 const $btnClose = document.querySelector(".btn-close")
 const $contentAbout = document.querySelector(".content-about")
 const $contentWin = document.querySelector(".content-win")
-
 
 $foundations.forEach(found => foundIDs.push(found.id))
 $tableaus.forEach(tab => tabIDs.push(tab.id))
@@ -301,8 +298,8 @@ function stockToWaste(){
 
 //draw the card's image in page
 function redrawCards(){
-  let url = `assets/images/cards/${deckDesign}/`
-  let unflippedImg = `${url}reverse.png`
+  let url = `assets/images/cards/traditional/`
+  let unflippedImg = `${url}reverse2.png`
   let emptyImg = `${url}empty.png`
   //clear existing cards
   document.querySelectorAll(".separator").forEach(sep => { sep.innerHTML = ""})
@@ -537,7 +534,7 @@ function draggedCardDom(dragging){
         //show empty space if full pile is dragged
         if(from.space == 0){ //double equal because space is array
           let imgPlace = document.querySelector(`#${from.place}`)
-          let url = `assets/images/cards/${deckDesign}/`
+          let url = `assets/images/cards/traditional/`
           let empty = document.createElement("img")
           empty.src = `${url}empty.png`
           empty.classList.add("card","placeholder")
@@ -571,7 +568,7 @@ function draggedCardDom(dragging){
         //place cards in $movingCards separators
         let movingCard = document.querySelector(`#${from.place} .n0`).firstChild
         //showing previous card or empty space
-        let url = `assets/images/cards/${deckDesign}/`
+        let url = `assets/images/cards/traditional/`
         let imgPlace = document.querySelector(`#${from.place} .n0`)
         let previousCard = document.createElement("img")
         let length
@@ -621,9 +618,7 @@ function draggedCardDom(dragging){
 }
 
 //function for prompts
-function promptAction(){
-  $menu.classList.remove("menu-show")
-  
+function promptAction(){  
   if(this.className.includes("btn-about")){
     $fullScreenContainer.classList.remove("hidden")
     $contentAbout.classList.remove("hidden")
@@ -641,12 +636,10 @@ function preloadImages(){
   for (let i = 0; i < 2; i++) {
     deck.forEach(card => {
       let img = document.createElement("img")
-      let url = `assets/images/cards/${deckDesign}/`
+      let url = `assets/images/cards/traditional/`
       img.src = `${url}${card.suit}${card.number}.png`
       $preload.appendChild(img)
     })
-    
-    i === 0 ? deckDesign = "traditional" : deckDesign = "traditional"
   }
   setTimeout(() => {
     $preload.innerHTML = ""
@@ -663,7 +656,7 @@ function AnimatedNewGame(){
   //creating cards
   for (let i = 0; i < toAnimate.length; i++) {
     let newCard = document.createElement("img")
-    newCard.src = `assets/images/cards/${deckDesign}/reverse.png`
+    newCard.src = `assets/images/cards/traditional/reverse2.png`
     newCard.classList.add("card","animation-intro")
     stockPile.appendChild(newCard)
   }
@@ -703,23 +696,6 @@ function AnimatedNewGame(){
 
 
 //DOM listeners
-$btnGear.addEventListener("click", () => {
-  $menu.classList.toggle("menu-show")
-})
-
-$btnRestart.addEventListener("click", () => {
-  $menu.classList.toggle("menu-show")
-  newGame()
-})
-
-$btnDesign.addEventListener("click", () =>{
-  if(deckDesign === "traditional"){
-    deckDesign = "traditional"
-  } else if(deckDesign === "traditional"){
-    deckDesign = "traditional"
-  }
-  redrawCards()
-})
 
 $btnAbout.addEventListener("click", promptAction)
 
