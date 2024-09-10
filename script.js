@@ -29,7 +29,6 @@ const $tableaus = document.querySelectorAll(".tableau");
 const $playArea = document.querySelector(".play-area")
 const $movingCards = document.querySelector(".moving-cards")
 //hud related
-const $menu = document.querySelector(".menu")
 const $btnRestart = document.querySelector(".btn-restart")
 const $btnAbout = document.querySelector(".btn-about")
 
@@ -619,6 +618,7 @@ function draggedCardDom(dragging){
 
 //function for prompts
 function promptAction(){  
+  console.log(this.classList)
   if(this.className.includes("btn-about")){
     $fullScreenContainer.classList.remove("hidden")
     $contentAbout.classList.remove("hidden")
@@ -696,6 +696,9 @@ function AnimatedNewGame(){
 
 
 //DOM listeners
+$btnRestart.addEventListener("click", () => {
+  newGame()
+})
 
 $btnAbout.addEventListener("click", promptAction)
 
